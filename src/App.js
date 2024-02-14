@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Components/Header";
+import Inputoutput from "./Components/Inputoutput";
+import { createContext,useState } from 'react';
 
+
+
+export const Appstate = createContext();
 function App() {
+  const [isDark,setDark]=useState(true);
+  const [isLoader,setLoder]=useState(false);
+  const [data,setData]=useState('');
+  const [inputData,setInput]=useState('');
+  const theme=document.querySelector("body").style;
+
+    if(isDark){
+      theme.color="white";
+      theme.backgroundColor="black";
+    }
+    else{
+      theme.color="black";
+      theme.backgroundColor="white";
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Appstate.Provider value={{ isDark,setDark,isLoader,setLoder,data,setData,inputData,setInput }}>
+      <div className='h-screen'>
+        <Header />
+        <Inputoutput/>
+      </div>
+    </Appstate.Provider>
   );
 }
 
